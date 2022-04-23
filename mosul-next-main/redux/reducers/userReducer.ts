@@ -71,6 +71,19 @@ const userSlice = createSlice({
             window.location.href = '/'
             
         },
+        // 회원탈퇴
+        delUserRequest(state: UserState, payload){
+            state.loading = true; 
+        },
+        delUserSuccess(state: UserState, {payload}){ 
+            state.data = [...state.data, payload]
+            state.loading = false;
+            
+        },
+        delUserFailure(state: UserState, {payload}){ 
+            state.data = payload;
+            state.loading = false;
+        },
     }
 })
 // joinRequest joinSuccess joinFailurer같은 것이 actions로 넘어감

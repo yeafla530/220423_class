@@ -40,11 +40,17 @@ app.post('/login', cors(corsOptions), (req, res) => {
     UserService().login(req, res)
 })
 // 인증 : passport 도 middleware이다
-// passport되어야 실행됨
-app.get('/logpit', passport.authenticate('jwt', {session: false}), (req, res) => {
+// passport되어야 실행됨 > 사람 구별
+app.get('/logout', passport.authenticate('jwt', {session: false}), (req, res) => {
 
     console.log('진행5 : router 진입 ##')
     UserService().logout(req, res)
+   
+})
+// 회원 목록 가져오기
+app.get('/getUsers', cors(corsOptions), (req, res) => {
+    console.log("##getUser##")
+    UserService().getUsers(req, res)
    
 })
 export default app

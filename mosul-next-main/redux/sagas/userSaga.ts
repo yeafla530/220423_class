@@ -1,7 +1,7 @@
 import { PayloadAction } from '@reduxjs/toolkit'
 import { call, delay, put, takeLatest } from 'redux-saga/effects'
 import { userActions } from '../reducers/userReducer.ts';
-import { joinApi, loginApi, logoutApi } from '../api/userApi.ts'
+import { joinApi, loginApi, logoutApi, delUserApi } from '../api/userApi.ts'
 
 
 // 새로 생성 
@@ -34,6 +34,12 @@ interface UserLoginSuccessType{
     }
 }
 
+interface UserDelUserSuccessType{
+    type: string;
+    payload: {
+        
+    }
+}
 
 // 1. join
 function* join(user: UserJoinType){
@@ -97,4 +103,19 @@ function* logout(){
 // join이 끝나면 함수도 같이 꺼짐
 export function* watchLogout(){
     yield takeLatest(userActions.logoutRequest, logout)
+}
+
+// 회원탈퇴
+function* delUser(){
+    try{
+        const response : UserDelUserSuccessType = yield delUserApi()
+        yield put(userActions.delUserSuccess(response))
+    }catch(error){
+        alert(' 진행 3: saga내부 login 실패')
+        //  yield put(userActions.loginFailure(error))
+    }
+}
+
+export function* watchDelUser(){
+    yield takeLatest(userActions.delUserRequest, delUser)
 }

@@ -11,7 +11,9 @@ export default function Profile() {
     }, [])
 
     return (
-        <> < form > <table className={tableStyles.table}>
+        <> 
+        < form > 
+        <table className={tableStyles.table}>
             <thead>
                 <tr>
                     <th colSpan={2}>
